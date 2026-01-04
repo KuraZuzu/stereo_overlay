@@ -78,14 +78,24 @@ pip install opencv-python numpy
 内部パラメータ（intrinsics）用に、各カメラでチェッカーボードを撮影します。  
 この段階では **治具・ロボットへの取り付け不要**です。
 
+実行時は、撮影する際のデバイスファイルと撮影画像出力先を指定します。
+
 #### カメラAの撮影
 ```bash
-python3 capture_calib_images.py   --mode single   --devA /dev/video0   --outA calib/A
+python3 capture_calib_images.py --mode single --device /dev/video0 --out_dir calib/A
 ```
 
 #### カメラBの撮影
 ```bash
-python3 capture_calib_images.py   --mode single   --devA /dev/video2   --outA calib/B
+python3 capture_calib_images.py --mode single --device /dev/video2 --out_dir calib/B
+```
+
+#### オプション
+
+カメラAとカメラBで同時に撮影もできます。
+
+```bash
+python3 capture_calib_images.py --mode pair --deviceA /dev/video0 --deviceB /dev/video2 --outA calib/A --outB calib/B
 ```
 
 **ポイント**
