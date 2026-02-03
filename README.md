@@ -112,12 +112,12 @@ python3 capture_calib_images.py --mode pair --deviceA /dev/video4 --deviceB /dev
 
 #### カメラA
 ```bash
-python3 calibrate_intrinsics.py   --img_dir calib/A   --out calib/intrinsics_A.yaml   --board_cols 9   --board_rows 5   --square_size 0.05
+python3 calibrate_intrinsics.py   --img_dir calib/A   --out calib/intrinsics_A.yaml   --board_cols 7   --board_rows 4   --square_size 0.09
 ```
 
 #### カメラB
 ```bash
-python3 calibrate_intrinsics.py   --img_dir calib/B   --out calib/intrinsics_B.yaml   --board_cols 9   --board_rows 5   --square_size 0.05
+python3 calibrate_intrinsics.py   --img_dir calib/B   --out calib/intrinsics_B.yaml   --board_cols 7   --board_rows 4   --square_size 0.09
 ```
 
 ---
