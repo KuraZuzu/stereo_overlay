@@ -123,12 +123,12 @@ python3 capture_calib_images.py --mode pair --deviceA /dev/video5 --deviceB /dev
 
 #### カメラA
 ```bash
-python3 calibrate_intrinsics.py   --img_dir calib/A   --out calib/intrinsics_A.yaml   --board_cols 7   --board_rows 4   --square_size 0.09
+python3 calibrate_intrinsics.py   --img_dir calib/A   --out calib/intrinsics_A.yaml   --board_cols 4   --board_rows 7   --square_size 0.09
 ```
 
 #### カメラB
 ```bash
-python3 calibrate_intrinsics.py   --img_dir calib/B   --out calib/intrinsics_B.yaml   --board_cols 7   --board_rows 4   --square_size 0.09
+python3 calibrate_intrinsics.py   --img_dir calib/B   --out calib/intrinsics_B.yaml   --board_cols 4   --board_rows 7   --square_size 0.09
 ```
 
 ---
@@ -165,7 +165,7 @@ python3 calibrate_extrinsics.py   --mode ideal   --baseline 0.35   --baseline_si
 **ペア画像（`pair_XXXX_A.png` / `pair_XXXX_B.png`）が10組以上**あることが前提です。
 
 ```bash
-python3 calibrate_extrinsics.py   --mode stereo   --dirA calib/A   --dirB calib/B   --intrA calib/intrinsics_A.yaml   --intrB calib/intrinsics_B.yaml   --out calib/extrinsics_B_to_A.yaml   --board_cols 7   --board_rows 4   --square_size 0.09
+python3 calibrate_extrinsics.py   --mode stereo   --dirA calib/A   --dirB calib/B   --intrA calib/intrinsics_A.yaml   --intrB calib/intrinsics_B.yaml   --out calib/extrinsics_B_to_A.yaml   --board_cols 4   --board_rows 7   --square_size 0.065
 ```
 
 **ポイント**
