@@ -148,6 +148,21 @@ python3 calibrate_extrinsics.py   --mode ideal   --baseline 0.35   --baseline_si
 
 ---
 
+### 4.3b 外部パラメータ生成（ペア撮影から推定：stereo）
+
+同時撮影したペア画像から、B→A の外部パラメータを推定します。  
+**ペア画像（`pair_XXXX_A.png` / `pair_XXXX_B.png`）が10組以上**あることが前提です。
+
+```bash
+python3 calibrate_extrinsics.py   --mode stereo   --dirA calib/A   --dirB calib/B   --intrA calib/intrinsics_A.yaml   --intrB calib/intrinsics_B.yaml   --out calib/extrinsics_B_to_A.yaml   --board_cols 7   --board_rows 4   --square_size 0.09
+```
+
+**ポイント**
+- `--board_cols/--board_rows` は **チェッカーボードの内点数**（セル数は+1）
+- A/Bの解像度は **同一を推奨**（違う場合は警告が出ます）
+
+---
+
 ### 4.4 実行（リアルタイム）
 
 #### パネル縦サイズの指定
