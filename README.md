@@ -90,12 +90,23 @@ python3 capture_calib_images.py --mode single --device /dev/video0 --out_dir cal
 python3 capture_calib_images.py --mode single --device /dev/video2 --out_dir calib/B
 ```
 
+#### 解像度/FPS/FourCC を指定したい場合
+```bash
+python3 capture_calib_images.py --mode single --device /dev/video0 --out_dir calib/A --width 1280 --height 720 --fps 60 --fourcc MJPG
+```
+
 #### オプション
 
 カメラAとカメラBで同時に撮影もできます。
 
 ```bash
 python3 capture_calib_images.py --mode pair --deviceA /dev/video4 --deviceB /dev/video6 --outA calib/A --outB calib/B
+```
+
+解像度/FPS/FourCC を個別に指定する例：
+
+```bash
+python3 capture_calib_images.py --mode pair --deviceA /dev/video5 --deviceB /dev/video7 --outA calib/A --outB calib/B --widthA 1280 --heightA 720 --fpsA 60 --fourccA MJPG --widthB 1280 --heightB 720 --fpsB 60 --fourccB MJPG
 ```
 
 **ポイント**
@@ -171,7 +182,7 @@ python3 calibrate_extrinsics.py   --mode stereo   --dirA calib/A   --dirB calib/
 例：上下LED中心間距離が 0.180m の場合：
 
 ```bash
-python3 run_overlay.py   --devA /dev/video0   --devB /dev/video2   --H 0.180
+python3 run_overlay.py   --devA /dev/video5   --devB /dev/video7   --H 0.180
 ```
 
 #### 実行中の表示
