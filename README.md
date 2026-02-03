@@ -193,6 +193,11 @@ python3 run_overlay.py   --devA /dev/video5   --devB /dev/video7   --H 0.180
   - 推定パネル位置（赤丸）
   - 推定距離 `Z` をテキスト表示
 
+#### カメラの解像度・フォーマットを指定して実行
+```bash
+python3 run_overlay.py   --devA /dev/video0   --devB /dev/video2   --widthA 1280   --heightA 720   --fpsA 30   --widthB 1280   --heightB 720   --fpsB 30   --fourccB MJPG   --H 0.180
+```
+
 `q` キーで終了します。
 
 ---

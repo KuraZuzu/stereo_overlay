@@ -167,19 +167,20 @@ def main():
     ap.add_argument("--extr", default="calib/extrinsics_B_to_A.yaml")
 
     # カメラA（表示）
-    ap.add_argument("--widthA", type=int, default=640)
-    ap.add_argument("--heightA", type=int, default=480)
-    ap.add_argument("--fpsA", type=int, default=30)
+    ap.add_argument("--widthA", type=int, default=1280)
+    ap.add_argument("--heightA", type=int, default=720)
+    ap.add_argument("--fpsA", type=int, default=90)
+    ap.add_argument("--fourccA", default="MJPG")
 
     # カメラB（検出）
-    ap.add_argument("--widthB", type=int, default=640)
-    ap.add_argument("--heightB", type=int, default=480)
+    ap.add_argument("--widthB", type=int, default=1280)
+    ap.add_argument("--heightB", type=int, default=720)
     ap.add_argument("--fpsB", type=int, default=90)
     ap.add_argument("--fourccB", default="MJPG")
 
     # キャリブ時の解像度（違う場合は簡易スケール）
-    ap.add_argument("--calibA", default="640x480")
-    ap.add_argument("--calibB", default="640x480")
+    ap.add_argument("--calibA", default="1280x720")
+    ap.add_argument("--calibB", default="1280x720")
 
     # undistort
     ap.add_argument("--alpha", type=float, default=1.0, help="undistort alpha (1.0=wide, 0.0=crop/zoom)")
@@ -197,7 +198,7 @@ def main():
     K_B, dist_B = load_intrinsics(args.intrB)
     R_BA, t_BA = load_extrinsics(args.extr)  # P_A = R_BA * P_B + t_BA
 
-    capA = open_cam(args.devA, args.widthA, args.heightA, args.fpsA)
+    capA = open_cam(args.devA, args.widthA, args.heightA, args.fpsA, fourcc=args.fourccA)
     capB = open_cam(args.devB, args.widthB, args.heightB, args.fpsB, fourcc=args.fourccB)
 
     # Bにだけv4l2設定を適用
