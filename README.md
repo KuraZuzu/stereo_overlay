@@ -95,7 +95,7 @@ python3 capture_calib_images.py --mode single --device /dev/video2 --out_dir cal
 カメラAとカメラBで同時に撮影もできます。
 
 ```bash
-python3 capture_calib_images.py --mode pair --deviceA /dev/video0 --deviceB /dev/video2 --outA calib/A --outB calib/B
+python3 capture_calib_images.py --mode pair --deviceA /dev/video4 --deviceB /dev/video6 --outA calib/A --outB calib/B
 ```
 
 **ポイント**
@@ -112,12 +112,12 @@ python3 capture_calib_images.py --mode pair --deviceA /dev/video0 --deviceB /dev
 
 #### カメラA
 ```bash
-python3 calibrate_intrinsics.py   --img_dir calib/A   --out calib/intrinsics_A.yaml   --board_cols 9   --board_rows 6   --square_size 0.025
+python3 calibrate_intrinsics.py   --img_dir calib/A   --out calib/intrinsics_A.yaml   --board_cols 9   --board_rows 5   --square_size 0.05
 ```
 
 #### カメラB
 ```bash
-python3 calibrate_intrinsics.py   --img_dir calib/B   --out calib/intrinsics_B.yaml   --board_cols 9   --board_rows 6   --square_size 0.025
+python3 calibrate_intrinsics.py   --img_dir calib/B   --out calib/intrinsics_B.yaml   --board_cols 9   --board_rows 5   --square_size 0.05
 ```
 
 ---
