@@ -195,7 +195,15 @@ python3 run_overlay.py   --devA /dev/video5   --devB /dev/video7   --H 0.180
 
 #### カメラの解像度・フォーマットを指定して実行
 ```bash
-python3 run_overlay.py   --devA /dev/video0   --devB /dev/video2   --widthA 1280   --heightA 720   --fpsA 30   --widthB 1280   --heightB 720   --fpsB 30   --fourccB MJPG   --H 0.180
+python3 run_overlay.py   --devA /dev/video0   --devB /dev/video2   --widthA 1280   --heightA 720   --fpsA 30   --fourccA MJPG   --widthB 1280   --heightB 720   --fpsB 30   --fourccB MJPG   --H 0.180
+```
+
+#### 歪み補正を有効にしたい場合（任意）
+デフォルトは **生画像表示（歪み補正なし）** です。  
+歪み補正をかけたい場合のみ `--undistortA/--undistortB` を指定してください。
+
+```bash
+python3 run_overlay.py   --devA /dev/video0   --devB /dev/video2   --widthA 1280   --heightA 720   --fpsA 30   --fourccA MJPG   --widthB 1280   --heightB 720   --fpsB 30   --fourccB MJPG   --undistortA   --undistortB   --alpha 0.0   --H 0.180
 ```
 
 `q` キーで終了します。

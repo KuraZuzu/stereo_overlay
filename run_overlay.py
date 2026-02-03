@@ -184,8 +184,11 @@ def main():
 
     # undistort
     ap.add_argument("--alpha", type=float, default=1.0, help="undistort alpha (1.0=wide, 0.0=crop/zoom)")
-    ap.add_argument("--no_undistortA", action="store_true")
-    ap.add_argument("--no_undistortB", action="store_true")
+    ap.add_argument("--undistortA", action="store_true", help="apply undistortion to camera A (default: off)")
+    ap.add_argument("--undistortB", action="store_true", help="apply undistortion to camera B (default: off)")
+    # Deprecated flags (kept for compatibility)
+    ap.add_argument("--no_undistortA", action="store_true", help=argparse.SUPPRESS)
+    ap.add_argument("--no_undistortB", action="store_true", help=argparse.SUPPRESS)
 
     # Bのv4l2設定を切りたい場合用
     ap.add_argument("--no_bctrl", action="store_true", help="do not apply v4l2 controls to camera B")
@@ -228,12 +231,15 @@ def main():
         print(f"[WARN] Scaled K_B from {calibBw}x{calibBh} to {wB}x{hB} (PoC approximation)")
 
     # undistort maps
-    if args.no_undistortA:
+    use_undistortA = args.undistortA and not args.no_undistortA
+    use_undistortB = args.undistortB and not args.no_undistortB
+
+    if not use_undistortA:
         newK_A, map1A, map2A = K_A, None, None
     else:
         newK_A, map1A, map2A = build_undistorter(K_A, dist_A, (wA, hA), alpha=args.alpha)
 
-    if args.no_undistortB:
+    if not use_undistortB:
         newK_B, map1B, map2B = K_B, None, None
     else:
         newK_B, map1B, map2B = build_undistorter(K_B, dist_B, (wB, hB), alpha=args.alpha)
@@ -250,12 +256,12 @@ def main():
             # 一時的な落ちを想定して継続（抜けるよりマシ）
             continue
 
-        if args.no_undistortA:
+        if not use_undistortA:
             undA = frameA
         else:
             undA = undistort_with_map(frameA, map1A, map2A)
 
-        if args.no_undistortB:
+        if not use_undistortB:
             undB = frameB
         else:
             undB = undistort_with_map(frameB, map1B, map2B)
