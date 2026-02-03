@@ -144,11 +144,21 @@ def stereo_mode(args):
     flags = cv2.CALIB_FIX_INTRINSIC
     criteria = (cv2.TERM_CRITERIA_MAX_ITER + cv2.TERM_CRITERIA_EPS, 100, 1e-6)
 
-    rms, R, t, E, F = cv2.stereoCalibrate(
+    result = cv2.stereoCalibrate(
         objpoints, imgpointsA, imgpointsB,
         KA, distA, KB, distB, image_size,
         criteria=criteria, flags=flags
     )
+
+    # OpenCV Python bindings can return 5 or 9 values depending on version.
+    # 5 values: (rms, R, t, E, F)
+    # 9 values: (rms, K1, dist1, K2, dist2, R, t, E, F)
+    if len(result) == 5:
+        rms, R, t, E, F = result
+    elif len(result) == 9:
+        rms, _K1, _d1, _K2, _d2, R, t, E, F = result
+    else:
+        raise RuntimeError(f"Unexpected stereoCalibrate return length: {len(result)}")
 
     # OpenCV stereoCalibrate returns R, t such that:
     #   points_B = R * points_A + t
