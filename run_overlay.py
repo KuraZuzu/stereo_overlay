@@ -194,6 +194,7 @@ def main():
     ap.add_argument("--no_bctrl", action="store_true", help="do not apply v4l2 controls to camera B")
 
     ap.add_argument("--H", type=float, required=True, help="vertical LED center distance in meters")
+    ap.add_argument("--no_overlay_bbox", action="store_true", help="do not project B detection bbox onto A")
 
     args = ap.parse_args()
 
@@ -303,6 +304,30 @@ def main():
                             (0, 0, 255),
                             2,
                         )
+
+                if not args.no_overlay_bbox:
+                    ux, uy, uw, uh = det.union_box
+                    corners_b = [
+                        (ux, uy),
+                        (ux + uw, uy),
+                        (ux + uw, uy + uh),
+                        (ux, uy + uh),
+                    ]
+                    proj = []
+                    for (u, v) in corners_b:
+                        P_Bc = backproject_pixel_to_3d(u, v, Z, newK_B)
+                        P_Ac = R_BA @ P_Bc + t_BA
+                        uvAc = project_3d_to_pixel(P_Ac, newK_A)
+                        if uvAc is not None:
+                            proj.append(uvAc)
+
+                    if len(proj) == 4:
+                        xs = [p[0] for p in proj]
+                        ys = [p[1] for p in proj]
+                        x1, y1 = int(min(xs)), int(min(ys))
+                        x2, y2 = int(max(xs)), int(max(ys))
+                        if x2 > x1 and y2 > y1:
+                            cv2.rectangle(undA, (x1, y1), (x2, y2), (0, 255, 0), 2)
 
         cv2.putText(
             undA,
